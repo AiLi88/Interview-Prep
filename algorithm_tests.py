@@ -1,4 +1,5 @@
 import unittest
+from auxilary import generate_, run_algorithm
 from algorithms import *
 
 class SortingTest(unittest.TestCase):
@@ -13,8 +14,11 @@ class SortingTest(unittest.TestCase):
     def test_Shell_Sort(self):
         self.assertTrue(run_algorithm(self.random_, shell_sort))
     def test_Merge_Sort(self):
+        self.assertTrue(run_algorithm(self.random_, merge_sort))
+    def test_Quick_Sort(self):
         random = self.random_[0]
-        merge_sort(random)
+        quick_sort(random)
+#        self.assertTrue(run_algorithm(self.random_, quick_sort))
 
 if __name__ == '__main__':
     unittest.main()

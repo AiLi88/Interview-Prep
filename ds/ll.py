@@ -1,28 +1,45 @@
 class Node(object):
     def __init__(self, data, next_=None):
         self.data = data
-        self._next = next_
+        self.next = next_
     def __str__(self):
         temp = self
         data = ''
         while temp != None:
             data += str(temp.data) + '->' 
-            temp = temp._next
+            temp = temp.next
         return data[:-2]
-def removeDuplications(head):
-    temp = head
+class LinkedList(object):
+    def __init__(self, data=None):
+        self.head = None
+        if data != None:
+            self.head = Node(data)
+    def __str__(self):
+        temp = self.head
+        data = ''
+        while temp != None:
+            data += str(temp.data) + '->' 
+            temp = temp.next
+        return data[:-2]
+    def insert_front(self, data):
+        if self.head == None:
+            self.head = Node(data)
+        else:
+            node = Node(data, self.head)
+            self.head = node
+    def insert_back(self, data):
+        if self.head == None:
+            self.head = Node(data)
+        else:
+            head = self.head
+            while head != None and head.next != None:
+                head = head.next
+            head.next = Node(data)
+        
 
-
-head = Node(10)
-head._next = Node(12)
-head._next._next = Node(13)
-head._next._next._next = Node(10)
-head._next._next._next._next = Node(10)
-head._next._next._next._next._next = Node(11)
-
-
-print head
-
-removeDuplications(head)
-
-print head
+if __name__ == '__main__':
+    ll = LinkedList()
+    ll.insert_front(10)
+    ll.insert_front(20)
+    ll.insert_back(5)
+    print ll

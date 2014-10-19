@@ -146,7 +146,7 @@ def find_repetition(list_):
 
 """Find the kth smallest element"""
 def partition(list_, left, right):
-    pivotIndex = random.randrange(left, right)
+    pivotIndex = left + (right - left) // 2
     pivot = list_[pivotIndex]
     lbound = 0
     rbound = right
@@ -157,17 +157,73 @@ def partition(list_, left, right):
             rbound -= 1
         if lbound == rbound:
             break
-        temp = list_[lbound]
-        list_[lbound] = list_[rbound]
-        list_[lbound] = temp
+        list_[lbound], list_[rbound] = list_[rbound], list_[lbound]
     return lbound
 def kth_element(list_, left, right, k):
     index = partition(list_, left, right)
     ans = k - 1
     if ans == index: 
-        return index
+        return list_[index]
     elif ans < index:
         return kth_element(list_, left, index - 1, k)
     elif ans > index:
         return kth_element(list_, index + 1, right, k)
+
+def swap_num(x, y):
+    """ 17.1
+        Write a function to swap a number in place 
+        (that is, without temporary variables)
+    """
+    x = x^y
+    y = x^y
+    x = x^y
+    return (x, y)
+
+def won_game(board, n=3):
+    """ 17.2
+        Design an algorithm to see if someone has won a game 
+        of tic tac toe
+    """
+    for row in xrange(0, n):
+        # checking for row
+        if board[row][0] != -1 and \
+           board[row][0] == board[row][1] and \
+           board[row][0] == board[row][2]: 
+               return board[row][0]
+
+        # checking for columns
+        elif board[0][row] != -1 and \
+                board[0][row] == board[1][row] and \
+                board[0][row] == board[2][row]:
+                    return board[0][row]
+
+        # checking for diagonals
+        elif board[0][0] != -1 and \
+             board[0][0] == board[1][1] and \
+             board[0][0] == board[2][2]:
+                 return board[0][0]
+        elif board[2][0] != -1 and \
+             board[2][0] == board[1][1] and \
+             board[2][0] == board[0][2]:
+                 return board[2][0]
+    return -1
+
+def trailing_zeros(n):
+    """ 17.3
+        Write an algorithm which computes the number of trailing zeros
+        in n factorial 
+    """
+    count = 0
+    if n < 0: return -1
+    i = 5
+    while n/i > 0:
+        count += n / i
+        i *= 5
+    return count
+
+
+
+    
+
+
 

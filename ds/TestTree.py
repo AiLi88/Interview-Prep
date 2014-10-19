@@ -94,6 +94,33 @@ class TestTreeAlgorithms(unittest.TestCase):
         self.assertEqual(3, get_height(self.root))
     def test_tree_is_balanced(self):
         self.assertEqual(True, balance(self.root))
+    def test_sorted_array_to_tree(self):
+        array = [0, 4, 6, 9, 12, 16, 20]
+        root = array_into_tree(array)
+        with self.capture() as out:
+            in_order(root)
+            result = out.getvalue().rstrip().replace('\n', ' ')
+            self.assertEqual('0 4 6 9 12 16 20', result)
+    def test_breadth_first_traversal(self):
+        with self.capture() as f:
+            breadth_traversal(self.root)
+            result = f.getvalue().rstrip().replace('\n', ' ')
+            self.assertEqual("20 15 25 10 14 24 34", result) 
+    def test_linked_lists_at_each_level(self):
+        print linked_list_depth(self.root)
+class TestPython(unittest.TestCase):
+    def test_how_queues_work_in_python(self):
+        import Queue
+        q1 = Queue.Queue()
+        q2 = Queue.Queue()
+        q1.put(1)
+        q2.put(2)
+        self.assertFalse(q1 == q2)
+        q1 = q2
+        self.assertTrue(q1 == q2)
+        q2.empty()
+        self.assertTrue(q1 == q2)
+
 
 
 if __name__=='__main__':

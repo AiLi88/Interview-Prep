@@ -34,5 +34,47 @@ class ProblemTest(unittest.TestCase):
     def test_find_kth_element(self):
         a = [20, 10, 5, 89, 4]
         self.assertEqual(20, kth_element(a, 0, len(a)-1, 4) )
+    def test_swap_elements_without_temp(self):
+        x = 20
+        y = 30
+        x, y = swap_num(x, y)
+        self.assertEqual(20, y)
+        self.assertEqual(30, x)
+    def test_won_game_of_tic_tac_toe(self):
+        board = [
+            ['x', 'x', 'x'],
+            [-1, 'o', 'x'],
+            [-1, -1, 'o']
+        ]
+        self.assertEqual('x', won_game(board))
+        board = [
+            ['o', 'x', 'x'],
+            ['o', 'o', 'x'],
+            ['o', -1, 'o']
+        ]
+        self.assertEqual('o', won_game(board))
+        board = [
+            ['o', 'x', 'x'],
+            ['x', 'o', 'x'],
+            ['o', -1, 'o']
+        ]
+        self.assertEqual('o', won_game(board))
+        board = [
+            ['o', 'o', 'x'],
+            ['o', 'x', 'x'],
+            ['x', -1, 'o']
+        ]
+        self.assertEqual('x', won_game(board))
+        board = [
+            [-1, -1, -1],
+            [-1, -1, -1],
+            [-1, -1, -1]
+        ]
+        self.assertEqual(-1, won_game(board))
+    def test_trailing_zeros_in_factorial(self):
+        self.assertEqual(1, trailing_zeros(5))
+        self.assertEqual(2, trailing_zeros(10))
+        self.assertEqual(2, trailing_zeros(12))
+        self.assertEqual(3, trailing_zeros(15))
 if __name__ == '__main__':
     unittest.main()

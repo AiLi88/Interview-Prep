@@ -69,7 +69,6 @@ def mirror_tree_aux(root):
     root.right = temp
     mirror_tree_aux(root.left)
     mirror_tree_aux(root.right)
-
 def get_height(root):
     if root == None: return 0
     return max(1+get_height(root.left), 1+get_height(root.right))
@@ -79,6 +78,38 @@ def balance(root):
     diff = abs(get_height(root.left) - get_height(root.right))
     if diff > 1: return False
     return balance(root.left) and balance(root.right)
+def array_into_tree_aux(array, left, right):
+    if left > right:
+        return None
+    mid = left + (right - left) // 2
+    return Node(array[mid], array_into_tree_aux(array, left, mid-1), array_into_tree_aux(array, mid+1, right))
+    
+def array_into_tree(array):
+    return array_into_tree_aux(array, 0, len(array)-1)
+
+def breadth_traversal(root):
+    import Queue
+    q = Queue.Queue()
+    q.put(root)
+    level = 0
+    while q.empty() == False:
+        node = q.get()
+        print node.data
+        if node.left != None:
+            q.put(node.left)
+        if node.right != None:
+            q.put(node.right)
+def linked_list_depth_aux(root, lists, level):
+    if root == None: return
+    lists[level].append(root.data)
+    linked_list_depth_aux(root.left, lists, 1+level)
+    linked_list_depth_aux(root.right, lists, 1+level)
+    return lists
+
+def linked_list_depth(root):
+    size = max_depth(root)
+    l = [[] for _ in xrange(0, size)]
+    return linked_list_depth_aux(root, l, 0)
 
 
 

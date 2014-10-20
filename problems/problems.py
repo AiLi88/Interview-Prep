@@ -169,10 +169,11 @@ def kth_element(list_, left, right, k):
     elif ans > index:
         return kth_element(list_, index + 1, right, k)
 
+
 def swap_num(x, y):
     """ 17.1
-        Write a function to swap a number in place 
-        (that is, without temporary variables)
+        Write a function to swap number in place (that is,
+        without temporary variables
     """
     x = x^y
     y = x^y
@@ -221,9 +222,98 @@ def trailing_zeros(n):
         i *= 5
     return count
 
+def sign(n):
+    """ Returns the most significant bit """
+    return (n >> 31) & 0x1
+def max_num(x, y): 
+    """ 17.4
+        Write a method which finds the maximum of two numbers. You should
+        not use if else or any other comparison operator
+    """
+    result = x - y
+    signed = result >> 31 & 0x1
+    return x - signed * result
 
 
-    
+def start_index(array):
+    """ Returns index of elements in an array where the 
+        elements are first not sorted correctly
+    """
+    left = 0
+    right = len(array)-1
+    while left != right:
+        while left < right-1 and array[left] < array[left+1]:
+            left += 1
+        while right > left+1 and array[right] > array[right-1]:
+            right -= 1
+        return (left, right)
+    return (-1, -1)
+def find_smallest_elements(array, left, right):
+    subarray_min = left
+    subarray_max = right
+    for i in xrange(left, right+1):
+        if array[i] < array[subarray_min]:
+            subarray_min = i
+        if array[i] > array[subarray_max]:
+            subarray_max = i
+    return (array[subarray_min], array[subarray_max])
+def find_indicies(array):
+    """ 17.6
+        Given an array of integers, write a method to find indcies m and n such that
+        if you sorted elements m through n, the entire array would be sorted. Minimize
+        n - m (that is, find the smallest such sequence)
+    """
+    (left, right) = start_index(array)
+    length = len(array) - 1
+    if left == length or len(array) == 0:
+        return (-1,-1)
+    subarray_min, subarray_max = find_smallest_elements(array, left, right)
+    index_sorted_min, index_sorted_max = None, None
+    for i in range(left-1, -1, -1):
+        if array[i] > subarray_min:
+            index_sorted_min = i
+    for i in xrange(right+1, length+1):
+        if array[i] < subarray_max:
+            index_sorted_max = i
+    return (index_sorted_min, index_sorted_max)
 
+def find_contiguous_sequence(array):
+    """ 17.8
+        You are given an array of integers (both positive and negative). 
+        Find the contiguous sequence with the largest sum. Return the sum
+    """
+    currentSum = 0
+    maxSum = 0
+    for num in array:
+        currentSum += num
+        if currentSum < 0:
+            currentSum = 0
+        maxSum = max(currentSum, maxSum)
+    return maxSum
+def find_contiguous_sequence_product(array):
+    """ Follow up to 17.8
+        Given an array of integers (both positive and negative),
+        Find the contiguous seuqnce with the largest product. Returh the prodct
+    """
+    minProduct = 1
+    maxProduct = 1
+    runningProduct = 1
+    for num in array:
+        if num == 0:
+            minProduct = 1
+            maxProduct = 1
+        elif num < 0:
+            temp = maxProduct
+            maxProduct = max(minProduct * i, 1)
+            minProduct = temp * i
+        else:
+            maxProduct *= i
+            minProduct = min(minProduct * i, 1)
+        runningProduct = max(maxProduct, runningProduct)
+    return runningProduct
+
+""" 17.9
+    Design a method to find the frequency of occurences of any given word in a book
+"""
 
 

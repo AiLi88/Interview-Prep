@@ -76,5 +76,19 @@ class ProblemTest(unittest.TestCase):
         self.assertEqual(2, trailing_zeros(10))
         self.assertEqual(2, trailing_zeros(12))
         self.assertEqual(3, trailing_zeros(15))
+    def test_max_num_without_conditional_or_comparison(self):
+        self.assertEqual(5, max_num(5, 4))
+        self.assertEqual(100, max_num(99, 100))
+        self.assertEqual(10000, max_num(10, 10000))
+        self.assertEqual(200, max_num(124, 200))
+    def test_indicies_of_array_to_sort(self):
+        self.assertEqual((-1,-1), find_indicies([]))
+        a = [1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19]
+        self.assertEqual((3,9), find_indicies(a))
+    def test_contigious_sum_of_array(self):
+        self.assertEqual(0, find_contiguous_sequence([]))
+        self.assertEqual(5, find_contiguous_sequence([2,-8,3,-2,4,-10]))
+        self.assertEqual(5, find_contiguous_sequence([1,2,-4,1,3,-2,3,-1]))
+
 if __name__ == '__main__':
     unittest.main()

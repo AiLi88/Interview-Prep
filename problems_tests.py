@@ -89,6 +89,30 @@ class ProblemTest(unittest.TestCase):
         self.assertEqual(0, find_contiguous_sequence([]))
         self.assertEqual(5, find_contiguous_sequence([2,-8,3,-2,4,-10]))
         self.assertEqual(5, find_contiguous_sequence([1,2,-4,1,3,-2,3,-1]))
+    def test_child_steps(self):
+        self.assertEqual(0, child_stairs(0))
+        self.assertEqual(1, child_stairs(1))
+        self.assertEqual(1, child_stairs(2))
+        self.assertEqual(2, child_stairs(3))
+        self.assertEqual(4, child_stairs(4))
+        self.assertEqual(7, child_stairs(5))
+        self.assertEqual(13, child_stairs(6))
+    def test_find_magic_index(self):
+        a = [-10,-5,2,2,2,3,4,7,9,12,13]
+        self.assertEqual(2,find_magic_index(a))
+        a = [-40, -20, -1, 1, 2, 3, 5, 7, 9, 12, 13]
+        self.assertEqual(7,find_magic_index(a))
+    def test_generate_subsets(self):
+        sets = [1,2,3]
+        expected = [
+            [], [1], [2], [1,2], [3], [1,3], [2,3], [1,2,3]
+        ]
+        self.assertEqual(expected, find_subsets(sets))
+    def test_generate_all_permutations_of_a_string(self):
+        string = "abc"
+        expected = ["abc", "bac", "cba"]
+        self.assertEqual(expected, permutations(string))
+        
 
 if __name__ == '__main__':
     unittest.main()

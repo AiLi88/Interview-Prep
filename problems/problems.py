@@ -316,4 +316,80 @@ def find_contiguous_sequence_product(array):
     Design a method to find the frequency of occurences of any given word in a book
 """
 
+""" 9.1
+    A child is running uyp a staircase with n steps, and can hop either 1 step, 2 steps
+    or 3 steps at a time. Implement a method to count how many possible ways the child
+    can run up the stairs
+"""
+def child_steps_aux(n, cache):
+    if n <= 1: 
+        return n
+    elif n == 2:
+        return 1
+    else:
+        cache[n] = (child_steps_aux(n-3, cache) + 
+                    child_steps_aux(n-2, cache) +
+                    child_steps_aux(n-1, cache))
+        return cache[n]
+def child_stairs(n):
+    cache = {}
+    return child_steps_aux(n, cache)
+
+""" 9.2
+    Imagine a robot sitting on the upper left corner of an X by Y grid. The robot can
+    only move in two directions: right and down. How many possible paths are there
+    for the robot to go from (0,0) to (X,Y)?
+"""
+
+""" 9.3
+    A magic index in an array A[1...n-1] is defined to be an index such that A[i] = i
+    Given a sorted array of distinct integers, write a method to find a magic index, if
+    one exists in an array A
+"""
+def find_magic_index_aux(array, left, right):
+    if left > right or right >= len(array) or left < 0: return -1
+    mid = left + (right - left) // 2
+    mid_value = array[mid]
+    if array[mid] == mid:
+        return mid
+    left_index = find_magic_index_aux(array, left, min(mid-1, mid_value))
+    if left_index >= 0:
+        return left_index
+    right_index = find_magic_index_aux(array, max(mid+1,mid_value), right)
+    return right_index
+def find_magic_index(array):
+    return find_magic_index_aux(array, 0, len(array)-1) 
+
+""" 9.4
+    Write a method to return all subsets of a set
+"""
+def find_subsets_pythonic(sets):
+    subsets = [[]]
+    for set in sets:
+        subsets.extend([subset + [set] for subset in subsets])
+    return subsets
+def find_subsets(sets):
+    subsets = [[]]
+    for set in sets:
+        temp = []
+        for subset in subsets:
+            temp.extend([subset + [set]])
+        subsets.extend(temp)
+    return subsets
+def index_to_subset(index, sets):
+    pass
+def find_subsets_binary(sets):
+    subsets = [[]]
+    bit_length = 1 << len(sets) # Compute 2^n
+    for i in xrange(0, bit_length):
+        subset = index_to_subset(i,sets)
+        subsets.extend(subset)
+    return subsets
+
+""" 9.5
+    Write a method to compute all permutations of a string
+"""
+def permutations(string):
+    if string == None:
+        return ""
 
